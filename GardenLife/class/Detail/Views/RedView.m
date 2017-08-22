@@ -1,6 +1,6 @@
 //
 //  RedView.m
-//  LoveFresh
+//  
 //
 //  Created by Jane on 16/4/26.
 //  Copyright © 2016年 Jane. All rights reserved.
@@ -34,15 +34,6 @@
 }
 
 
-//- (instancetype)init
-//{
-//    self = [super init];
-//    if (self) {
-//        
-//        
-//    }
-//    return self;
-//}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -82,10 +73,6 @@
     [self removeObserver:self forKeyPath:@"buyNum"];
 }
 
--(void)addRedToTabBar
-{
-    
-}
 
 
 

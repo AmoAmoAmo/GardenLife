@@ -621,14 +621,14 @@
 		3F36B96F1CD8950700FE9DD3 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
-				3F36B9701CD8950700FE9DD3 /* AnimationViewController.h */,
-				3F36B9711CD8950700FE9DD3 /* AnimationViewController.m */,
-				3F36B9781CD8950700FE9DD3 /* HJNavigationController.h */,
-				3F36B9791CD8950700FE9DD3 /* HJNavigationController.m */,
 				3F36BB2C1CD8979600FE9DD3 /* MainViewController.h */,
 				3F36BB2D1CD8979600FE9DD3 /* MainViewController.m */,
+				3F36B9781CD8950700FE9DD3 /* HJNavigationController.h */,
+				3F36B9791CD8950700FE9DD3 /* HJNavigationController.m */,
 				3F7021591CDC328000BD1477 /* HJTabBar.h */,
 				3F70215A1CDC328000BD1477 /* HJTabBar.m */,
+				3F36B9701CD8950700FE9DD3 /* AnimationViewController.h */,
+				3F36B9711CD8950700FE9DD3 /* AnimationViewController.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";

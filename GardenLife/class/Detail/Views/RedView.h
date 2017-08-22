@@ -1,10 +1,11 @@
 //
 //  RedView.h
-//  LoveFresh
+//  
 //
 //  Created by Jane on 16/4/26.
 //  Copyright © 2016年 Jane. All rights reserved.
 //
+//  小红点和数字
 
 #import <UIKit/UIKit.h>
 

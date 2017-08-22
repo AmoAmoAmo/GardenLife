@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "HJNavigationController.h"
+
 #import "HomeViewController.h"
 #import "SuperMarketViewController.h"
 #import "ShopCarViewController.h"
@@ -25,7 +26,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    [self buildADImageView];
     [self buildTabBar];
     
     
@@ -64,8 +64,7 @@
     HJNavigationController *navigationVc = [[HJNavigationController alloc] initWithRootViewController:childVc];
     // 添加子控制器
     [self addChildViewController:navigationVc];
-//    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:childVc];
-//    [self addChildViewController:navVC];
+
 }
 
 

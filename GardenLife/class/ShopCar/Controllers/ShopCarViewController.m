@@ -187,7 +187,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataFromDB) name:@"buyNum_isChanged" object:nil];
     
     
-    /** 收到 收货人信息 */
+    /** 收到 收货人信息  --- "管理收货地址 点击 cell后 返回的通知" --- */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buildHeadWithReceiverMassage:) name:@"get_receiver_massage" object:nil];
 }
 
@@ -233,6 +233,8 @@
 }
 
 
+
+#pragma mark - 地址View
 -(void)buildHeadWithReceiverMassage:(NSNotification*)noti
 {
     NSDictionary *dataDic = noti.userInfo;
@@ -244,6 +246,7 @@
     [self.table.tableHeaderView addGestureRecognizer:tap];
 }
 
+    
 #pragma mark - UITableViewDataSource
 // 返回段头高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -303,7 +306,7 @@
 
 
 
-
+#pragma mark - 点击table的Head
 -(void)clickAddrView
 {
     MyAddressViewController *vc = [[MyAddressViewController alloc] init];

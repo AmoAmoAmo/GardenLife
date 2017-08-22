@@ -1,6 +1,6 @@
 //
 //  MyAddressViewController.m
-//  LoveFresh
+//  
 //
 //  Created by Jane on 16/4/7.
 //  Copyright © 2016年 Jane. All rights reserved.
@@ -54,27 +54,10 @@
 //    [self.navigationController.navigationBar setBarTintColor:nil];
     self.tabBarController.tabBar.hidden = YES;
     
-    
-    if (self.dataArr) {
-//        NSLog(@"dataArr.count===%ld",self.dataArr.count);
-        
-        // reload data from 沙盒  //  sandBox
-        NSString *homePath = NSHomeDirectory();
-        //获取完整路径
-        NSString *path = [homePath stringByAppendingPathComponent:@"/Documents/MyAddressData.plist"];
-//        NSLog(@"2====%@",path);
-        //沙盒文件中的内容（arr）
-        NSArray *docArr = [NSArray arrayWithContentsOfFile:path];
-//        NSLog(@"docArr****%ld",docArr.count);
-        self.dataArr = (NSMutableArray*)[NSArray arrayWithArray:docArr];
-//        NSDictionary *tempDic = self.dataArr[0];
-//        NSLog(@"name == %@",tempDic[@"name"]);
-        
-        
-    }
+    // 清空数据源，让它重新从mainbundle/沙盒目录中读取数据
+    self.dataArr = nil;
     // 重新刷表
     [self.table reloadData];
-//    [self.table selectRowAtIndexPath:[NSIndexPath indexPathForRow:self.selectedRow inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
 }
 
 -(void)setUI
@@ -95,11 +78,7 @@
 
 
 #pragma mark - UITableViewDataSource
-//让行可以移动
--(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
+
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
@@ -148,13 +127,6 @@
 {
     NSDictionary *dic = self.dataArr[indexPath.row];
     
-    // **** delegate
-    if ([_delegate respondsToSelector:@selector(changTitleLabelWithText:andDataDic:)])
-    {
-        // ***
-        
-        [_delegate changTitleLabelWithText:[NSString stringWithFormat:@"<%@",dic[@"address"]] andDataDic:dic];
-    }
     
     
     // **** userdefault *****
@@ -166,6 +138,7 @@
     [self.table reloadData];
     
     
+    // --------- 发送通知消息 （发送给前一个VC） ---------
     [[NSNotificationCenter defaultCenter] postNotificationName:@"get_receiver_massage" object:self userInfo:dic];
     
     if ([self.flagStr isEqualToString:@"car"]) {
@@ -187,11 +160,12 @@
 //滑动删除事件
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"-- row = %ld",indexPath.row);
     // 1. 删数据
     [self.dataArr removeObjectAtIndex:indexPath.row];
     
     // 2. 删界面
-    NSLog(@"%@",indexPath);
+    NSLog(@"--- 删界面 ---- indexPath = %@",indexPath);
     NSArray *deleteArr = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
     [self.table deleteRowsAtIndexPaths:deleteArr withRowAnimation:UITableViewRowAnimationLeft];
 //    [self.table deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
@@ -223,11 +197,7 @@
 -(NSMutableArray *)dataArr   // plist --> sandBox
 {
     if (!_dataArr) {
-#if 1
-        // 第一次 // 1.先从plist文件读取数据
-        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MyAddressData" ofType:@"plist"];
-        _dataArr = (NSMutableArray*)[NSArray arrayWithContentsOfFile:plistPath];
-        
+
         
         //获取本地沙盒路径
         NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -235,13 +205,23 @@
         NSString *documentsPath = [pathArr objectAtIndex:0];
         NSString *path = [documentsPath stringByAppendingPathComponent:@"MyAddressData.plist"];
 //        NSLog(@"1====%@",path);
-        //把plist文件里面的内容写入沙盒
-        [_dataArr writeToFile:path atomically:YES];
-#endif
-#if 0
-//        // 以后每一次
-//        _dataArr = [NSMutableArray array];
-#endif
+        
+        // 如果沙盒里有MyAddressData.plist该文件的话则直接读文件内容
+        NSFileManager *manager = [NSFileManager defaultManager];
+        if ([manager fileExistsAtPath:path]) {
+            //沙盒文件中的内容（arr）
+            NSArray *docArr = [NSArray arrayWithContentsOfFile:path];
+            _dataArr = (NSMutableArray*)[NSArray arrayWithArray:docArr];
+        }else
+        {
+            // 否则从mainBundle 的 plist文件读取数据，写入沙盒
+            NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MyAddressData" ofType:@"plist"];
+            _dataArr = (NSMutableArray*)[NSArray arrayWithContentsOfFile:plistPath];
+            
+            //把plist文件里面的内容写入沙盒
+            [_dataArr writeToFile:path atomically:YES];
+        }
+        
     }
     return _dataArr;
 }

@@ -1,6 +1,6 @@
 //
 //  AnimationViewController.m
-//  LoveFresh
+//  
 //
 //  Created by Jane on 16/4/28.
 //  Copyright © 2016年 Jane. All rights reserved.
@@ -88,12 +88,7 @@
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     if (self.myLayersArr.count > 0) {
-    
-//        CALayer *tempLayer = self.myLayersArr[0];
-//        tempLayer.hidden = YES;
-////        self.imgView.hidden = YES;
-//        [tempLayer  removeFromSuperlayer];
-//        tempLayer = nil;
+
         for (CALayer *layerT in self.myLayersArr) {
             layerT.hidden = YES;
             [layerT removeFromSuperlayer];

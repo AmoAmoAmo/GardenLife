@@ -79,6 +79,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    // 通知自定义的TabBar 小红点此时应该出现了。（小红点作为单例）
     [[NSNotificationCenter defaultCenter] postNotificationName:@"redViewNeedToReset" object:self];
 }
 

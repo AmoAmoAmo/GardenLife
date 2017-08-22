@@ -31,6 +31,8 @@
     return self;
 }
 
+
+// 收到让小红点显示的通知
 -(void)addRedToTabBar
 {
     [self addSubview:self.redView];

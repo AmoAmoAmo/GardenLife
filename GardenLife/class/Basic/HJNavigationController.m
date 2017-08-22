@@ -1,6 +1,6 @@
 //
 //  HJNavigationController.m
-//  Demo－1
+//  
 //
 //  Created by Jane on 16/3/12.
 //  Copyright © 2016年 Jane. All rights reserved.
@@ -61,6 +61,7 @@
         viewController.hidesBottomBarWhenPushed = YES;
         // 定义leftBarButtonItem
         viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+        viewController.navigationItem.hidesBackButton = YES;  // 要把BackButton隐藏起来，不然上一个VC的title文字会显示在BackButton的位置
         
         // 定义rightBarButtonItem
         viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.shareBtn];

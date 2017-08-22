@@ -275,6 +275,7 @@
     NSString *homePath = NSHomeDirectory();
     //获取完整路径
     NSString *path = [homePath stringByAppendingPathComponent:@"/Documents/MyAddressData.plist"];
+    NSLog(@"地址plist文件路径：%@",path);
     //沙盒文件中的全部内容（arr）
     NSMutableArray *docDataArr = [NSMutableArray arrayWithContentsOfFile:path];
 
@@ -321,7 +322,7 @@
         NSString *idStr = tempDic[@"id"];
 //        NSLog(@"last idStr   %@",idStr);
         NSInteger idIndex = [idStr intValue];
-        [dic setValue:[NSString stringWithFormat:@"%d",idIndex+1] forKey:@"id"];
+        [dic setValue:[NSString stringWithFormat:@"%ld",idIndex+1] forKey:@"id"];
         [docDataArr insertObject:dic atIndex:idIndex+1];
     }
     
