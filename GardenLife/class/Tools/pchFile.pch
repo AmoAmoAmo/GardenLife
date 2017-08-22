@@ -1,0 +1,42 @@
+//
+//  pchFile.pch
+//  LoveFresh
+//
+//  Created by Jane on 16/3/15.
+//  Copyright © 2016年 Jane. All rights reserved.
+//  $(TARGET_NAME)
+
+#ifndef pchFile_pch
+#define pchFile_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "UIImageView+WebCache.h"
+//#import "CXCollectionViewCell.h"
+//#import "MinCollectionCell.h"
+#import "JGProgressHUD+MyHUD.h"
+
+#import "AFNetworking.h"
+#import "UIImageView+WebCache.h"
+
+#import "FMDBmanager.h"
+
+#import <QuartzCore/QuartzCore.h>
+
+#define SCREENWIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
+
+#define AUTOCOLOR [UIColor colorWithRed:239/255.0 green:239/255.0 blue:239/255.0 alpha:1]
+#define THEMECORLOR [UIColor colorWithRed:253/255.0 green:208/255.0 blue:0/255.0 alpha:1]
+
+// placehold image
+#define PLACEIMAGE [UIImage imageNamed:@"grey1"]
+
+
+#define IMGURL @"http://7sbnc0.com2.z0.glb.qiniucdn.com/material/%@?imageView2/2/w/640"
+//  [NSURL URLWithString:[NSString stringWithFormat:IMGURL,]]
+
+#define DetailURL @"http://api.1mxian.com/v4/goods/%@/show?refer_from=APP_IOS_2.1.0&store_id=550&token=98dfd6c337ec3f0569395472d3869504"
+
+#endif /* pchFile_pch */

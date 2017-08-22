@@ -1,0 +1,113 @@
+{
+"status": true,
+"msg": "操作成功",
+"result": [
+{
+"fnId": "8792457a-0f91-414a-9c4a-969326d6955e",
+"fnPid": "0",
+"fnName": "花植",
+"fnPic": null,
+"fnMerchantsId": "htxq",
+"fnDesc": null,
+"fnIsUse": 1,
+"fnCreateDate": 1459936511000,
+"fnSequence": 0,
+"childrenMap": {},
+"childrenList": [
+{
+"fnId": "80d04359-6e21-4f7e-b4f8-6544b154730a",
+"fnPid": "8792457a-0f91-414a-9c4a-969326d6955e",
+"fnName": "花植",
+"fnPic": null,
+"fnMerchantsId": "htxq",
+"fnDesc": null,
+"fnIsUse": 1,
+"fnCreateDate": 1461919623000,
+"fnSequence": 0,
+"childrenMap": {},
+"childrenList": []
+},
+{
+"fnId": "97f6caab-f50d-47a4-a884-462e606a36f8",
+"fnPid": "8792457a-0f91-414a-9c4a-969326d6955e",
+"fnName": "神秘箱",
+"fnPic": null,
+"fnMerchantsId": "htxq",
+"fnDesc": null,
+"fnIsUse": 1,
+"fnCreateDate": 1460359080000,
+"fnSequence": 0,
+"childrenMap": {},
+"childrenList": []
+}
+]
+},
+{
+"fnId": "860885f6-9126-409a-b0c8-4f2261f19e9a",
+"fnPid": "0",
+"fnName": "课堂",
+"fnPic": null,
+"fnMerchantsId": "htxq",
+"fnDesc": null,
+"fnIsUse": 1,
+"fnCreateDate": 1459936478000,
+"fnSequence": 0,
+"childrenMap": {},
+"childrenList": [
+{
+"fnId": "2c01c5cf-5272-4025-bf58-bce07fe1aa77",
+"fnPid": "860885f6-9126-409a-b0c8-4f2261f19e9a",
+"fnName": "兴趣课",
+"fnPic": null,
+"fnMerchantsId": "htxq",
+"fnDesc": null,
+"fnIsUse": 1,
+"fnCreateDate": 1459936483000,
+"fnSequence": 0,
+"childrenMap": {},
+"childrenList": []
+}
+]
+},
+{
+"fnId": "e11cc8f0-7ba6-4739-a1f2-f08b60476154",
+"fnPid": "0",
+"fnName": "杂物",
+"fnPic": null,
+"fnMerchantsId": "htxq",
+"fnDesc": null,
+"fnIsUse": 1,
+"fnCreateDate": 1459926027000,
+"fnSequence": 0,
+"childrenMap": {},
+"childrenList": [
+{
+"fnId": "8ac8dc7d-bc26-4818-b9a2-f359b6226495",
+"fnPid": "e11cc8f0-7ba6-4739-a1f2-f08b60476154",
+"fnName": "工具",
+"fnPic": null,
+"fnMerchantsId": "htxq",
+"fnDesc": null,
+"fnIsUse": 1,
+"fnCreateDate": 1461051182000,
+"fnSequence": 0,
+"childrenMap": {},
+"childrenList": []
+},
+{
+"fnId": "62650583-8624-4738-ba70-0642901a2d66",
+"fnPid": "e11cc8f0-7ba6-4739-a1f2-f08b60476154",
+"fnName": "周边",
+"fnPic": null,
+"fnMerchantsId": "htxq",
+"fnDesc": null,
+"fnIsUse": 1,
+"fnCreateDate": 1459935594000,
+"fnSequence": 0,
+"childrenMap": {},
+"childrenList": []
+}
+]
+}
+]
+}

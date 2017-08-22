@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "MainViewController.h"
+#import "UMSocial.h"
 
 @interface AppDelegate ()
 
@@ -17,8 +19,59 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [UMSocialData setAppKey:@"572b532567e58e17a1002daa"];
+    
+    
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] ;
+    
+    self.window.backgroundColor = [UIColor whiteColor] ;
+    
+    [self.window makeKeyAndVisible] ;
+    
+    
+    
+    MainViewController * mainVC = [[MainViewController alloc] init] ;
+    self.window.rootViewController = mainVC ;
+    
+    [self buildADImageView];
+//    [self sendDataDicToShopCar];
+    
     return YES;
 }
+
+-(void)buildADImageView
+{
+    UIImageView *adImgView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    adImgView.image = [UIImage imageNamed:@"4"];
+    [self.window addSubview:adImgView];
+    
+    [UIImageView animateWithDuration:2 animations:^{
+        
+        adImgView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+        adImgView.alpha = 0;
+        
+    } completion:^(BOOL finished) {
+        
+        [adImgView removeFromSuperview];
+        
+    }];
+    adImgView = nil;
+}
+
+
+-(void)sendDataDicToShopCar
+{
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MyAddressData" ofType:@"plist"];
+    NSArray *arr = [NSArray arrayWithContentsOfFile:plistPath];
+    
+//    NSLog(@"***** arr = %@", arr[0]);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"get_receiver_massage" object:self userInfo:arr[0]];// 默认选中第一个
+}
+
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
