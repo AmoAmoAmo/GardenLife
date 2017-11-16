@@ -37,7 +37,7 @@
     // 添加子控制器
     [self addChildVc:[[HomeViewController alloc] init] title:@"首页" image:@"home_2" selectedImage:@"home_2_sel"];
     [self addChildVc:[[SuperMarketViewController alloc] init] title:@"商城" image:@"store_2" selectedImage:@"store_2_sel"];
-    [self addChildVc:[[ShopCarViewController alloc] init] title:@"购物车" image:@"car_2" selectedImage:@"car_2_sel"];
+    [self addChildVc:[[ShopCarViewController alloc] init] title:@"购物车" image:@"car_3" selectedImage:@"car_3_sel"];
     [self addChildVc:[[MineViewController alloc] init] title:@"我" image:@"me" selectedImage:@"me_sel"];
 
     HJTabBar *hjTabBar = [[HJTabBar alloc] init];

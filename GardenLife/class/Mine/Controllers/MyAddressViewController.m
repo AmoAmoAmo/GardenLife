@@ -15,7 +15,7 @@
 
 @property (nonatomic,strong) UITableView *table;
 
-@property (nonatomic,strong) NSMutableArray *dataArr;
+@property (nonatomic,copy) NSMutableArray *dataArr;
 
 @property (nonatomic,strong) UIView *addNewAddressView;
 
@@ -163,12 +163,23 @@
     NSLog(@"-- row = %ld",indexPath.row);
     // 1. 删数据
     [self.dataArr removeObjectAtIndex:indexPath.row];
+    //    数据更新到沙盒目录文件
+    //      sandBox
+    NSString *homePath = NSHomeDirectory();
+    //      获取完整路径
+    NSString *path = [homePath stringByAppendingPathComponent:@"/Documents/MyAddressData.plist"];
+    //    NSLog(@"地址plist文件路径：%@",path);
+    //      地址plist文件中的全部内容（arr）
+    NSMutableArray *docDataArr = [NSMutableArray arrayWithContentsOfFile:path];
+    [docDataArr removeObjectAtIndex:indexPath.row];
+    // 更新到地址plist文件中
+    [docDataArr writeToFile:path atomically:YES];
+    
     
     // 2. 删界面
     NSLog(@"--- 删界面 ---- indexPath = %@",indexPath);
     NSArray *deleteArr = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
     [self.table deleteRowsAtIndexPaths:deleteArr withRowAnimation:UITableViewRowAnimationLeft];
-//    [self.table deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
 }
 //更改删除文字
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -194,7 +205,7 @@
 
 }
 
--(NSMutableArray *)dataArr   // plist --> sandBox
+-(NSMutableArray *)dataArr
 {
     if (!_dataArr) {
 
@@ -211,12 +222,21 @@
         if ([manager fileExistsAtPath:path]) {
             //沙盒文件中的内容（arr）
             NSArray *docArr = [NSArray arrayWithContentsOfFile:path];
-            _dataArr = (NSMutableArray*)[NSArray arrayWithArray:docArr];
+
+            /*
+             如果将mutableCopy换成copy 或者直接_dataArr = (NSMutableArray*)[NSArray arrayWithArray:docArr];
+             就会报以上错误或者[__NSArrayI addObjectAtIndex:]: unrecognized selector sent to instance  等等一列操作NSArray的错误.
+             
+             注:将NSMutableArray转成NSArray的时候要写copy
+             */
+//            _dataArr = (NSMutableArray*)[NSArray arrayWithArray:docArr];  // 误
+            _dataArr = [docArr mutableCopy];  // NSArray转成NSMutableArray的时候要这样写
         }else
         {
             // 否则从mainBundle 的 plist文件读取数据，写入沙盒
             NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MyAddressData" ofType:@"plist"];
-            _dataArr = (NSMutableArray*)[NSArray arrayWithContentsOfFile:plistPath];
+            NSArray *arr = [NSArray arrayWithContentsOfFile:plistPath];
+            _dataArr = [arr mutableCopy];
             
             //把plist文件里面的内容写入沙盒
             [_dataArr writeToFile:path atomically:YES];

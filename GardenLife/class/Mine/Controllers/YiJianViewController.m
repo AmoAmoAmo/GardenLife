@@ -104,6 +104,7 @@
     btn.selected = YES;
 }
 
+// 恢复成原来的位置
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [UIView animateWithDuration:0.3 animations:^{

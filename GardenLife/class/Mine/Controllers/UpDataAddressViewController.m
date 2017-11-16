@@ -15,26 +15,26 @@
 #define Height      50
 #define TFWIDTH     200
 
-@interface UpDataAddressViewController ()<UIScrollViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
+@interface UpDataAddressViewController ()<UIScrollViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate>
 
-@property(nonatomic, strong) UIScrollView *scroll;
-@property (nonatomic, strong) UIView *addressView;
+@property (nonatomic, strong) UIScrollView  *scroll;
+@property (nonatomic, strong) UIView        *addressView;
 
-@property (nonatomic, strong) UITextField *nameTF;
-@property (nonatomic, strong) UITextField *phoneTF;
-@property (nonatomic, strong) UITextField *city1TF;
-@property (nonatomic, strong) UITextField *city2TF;
-@property (nonatomic, strong) UITextField *detailTF;
+@property (nonatomic, strong) UITextField   *nameTF;
+@property (nonatomic, strong) UITextField   *phoneTF;
+@property (nonatomic, strong) UITextField   *city1TF;
+@property (nonatomic, strong) UITextField   *city2TF;
+@property (nonatomic, strong) UITextField   *detailTF;
 
-@property (nonatomic, strong) SexBtn *sexManBtn;
-@property (nonatomic, strong) SexBtn *sexWomanBtn;
+@property (nonatomic, strong) SexBtn        *sexManBtn;
+@property (nonatomic, strong) SexBtn        *sexWomanBtn;
 
-@property (nonatomic,strong) UIButton *saveBtn;
+@property (nonatomic, strong) UIButton      *saveBtn;
 
 /** 滚轮选择器 */
-@property (nonatomic, strong) UIPickerView *pickerView;
+@property (nonatomic, strong) UIPickerView  *pickerView;
 
-@property (nonatomic, strong) NSArray *citysArr;
+@property (nonatomic, strong) NSArray   *citysArr;
 /** 省份列 选中了第几行 */
 @property (nonatomic ,assign) NSInteger firstRow;
 /** 城市列 选中了第几行 */
@@ -150,7 +150,6 @@
         
         NSString *cityStr = [NSString stringWithFormat:@"%@ %@",city1Str,city2Str];
         [self.city1TF setText:cityStr];
-//        [self.pickerView endEditing:YES];
         [self.city1TF endEditing:YES];
         
     }else                                   // 取消
@@ -238,7 +237,31 @@
 //    NSLog(@"%ld 列，%ld 行", component, row);
 }
 
+    
+#pragma mark - UITextFieldDelegate 键盘抬起
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    /** 解决键盘遮挡问题 */
+    /** 键盘默认高度 */
+    CGFloat KeyBoardHeight = 216;
+    
+    /** 键盘上面的文字view，默认高度大约在38左右 */
+    CGFloat textHeight = 40;
+    
+    // 此处的textField是加在addressView上的，所以要再+10 再+64
+    
+    // 计算需要让self.view.center偏移的 偏移量
+    CGFloat offsetY = CGRectGetMaxY(textField.frame)+10+64 - (SCREENHEIGHT-KeyBoardHeight-textHeight);
+//    NSLog(@"----- offsetY = %.2f",offsetY);
+    
+    
+    if (offsetY > 0) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.view.center = CGPointMake(SCREENWIDTH*0.5, SCREENHEIGHT*0.5-offsetY);
+        }];
+    }
 
+}
 
 
 #pragma mark - 更新界面数据
@@ -275,8 +298,8 @@
     NSString *homePath = NSHomeDirectory();
     //获取完整路径
     NSString *path = [homePath stringByAppendingPathComponent:@"/Documents/MyAddressData.plist"];
-    NSLog(@"地址plist文件路径：%@",path);
-    //沙盒文件中的全部内容（arr）
+//    NSLog(@"地址plist文件路径：%@",path);
+    //地址plist文件中的全部内容（arr）
     NSMutableArray *docDataArr = [NSMutableArray arrayWithContentsOfFile:path];
 
     
@@ -317,7 +340,6 @@
             [dic setValue:@"2" forKey:@"gender"];
         }
 
-        
         NSDictionary *tempDic = [docDataArr lastObject];
         NSString *idStr = tempDic[@"id"];
 //        NSLog(@"last idStr   %@",idStr);
@@ -327,6 +349,8 @@
     }
     
     
+    
+    // 更新到地址plist文件中
     [docDataArr writeToFile:path atomically:YES];
     // 并退出
     [self.navigationController popViewControllerAnimated:YES];
@@ -352,6 +376,11 @@
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+//    NSLog(@"---scroll----");
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.view.center = CGPointMake(SCREENWIDTH*0.5, SCREENHEIGHT*0.5);
+    }];
     [self.view endEditing:YES];
 }
 
@@ -467,6 +496,7 @@
         _city2TF = [[UITextField alloc] initWithFrame:CGRectMake(TFX, Height*4, TFWIDTH, Height)];
         _city2TF.font = [UIFont systemFontOfSize:15];
         _city2TF.placeholder = @"地区";
+        _city2TF.delegate = self;
     }
     return _city2TF;
 }
@@ -477,6 +507,7 @@
         _detailTF = [[UITextField alloc] initWithFrame:CGRectMake(TFX, Height*5, TFWIDTH, Height)];
         _detailTF.font = [UIFont systemFontOfSize:15];
         _detailTF.placeholder = @"详细地址";
+        _detailTF.delegate = self;
     }
     return _detailTF;
 }
@@ -488,8 +519,8 @@
         _sexManBtn.frame = CGRectMake(TFX, Height*1, 100, 50);
         [_sexManBtn setTitle:@"先生" forState:UIControlStateNormal];
         [_sexManBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_sexManBtn setImage:[UIImage imageNamed:@"v2_noselected"] forState:UIControlStateNormal];
-        [_sexManBtn setImage:[UIImage imageNamed:@"v2_selected"] forState:UIControlStateSelected];
+        [_sexManBtn setImage:[UIImage imageNamed:@"select_no"] forState:UIControlStateNormal];
+        [_sexManBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
         [_sexManBtn addTarget:self action:@selector(clickSexBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _sexManBtn;
@@ -502,8 +533,8 @@
         _sexWomanBtn.frame = CGRectMake(TFX + 100 + 10, Height*1, 100, 50);
         [_sexWomanBtn setTitle:@"女士" forState:UIControlStateNormal];
         [_sexWomanBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_sexWomanBtn setImage:[UIImage imageNamed:@"v2_noselected"] forState:UIControlStateNormal];
-        [_sexWomanBtn setImage:[UIImage imageNamed:@"v2_selected"] forState:UIControlStateSelected];
+        [_sexWomanBtn setImage:[UIImage imageNamed:@"select_no"] forState:UIControlStateNormal];
+        [_sexWomanBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
         [_sexWomanBtn addTarget:self action:@selector(clickSexBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _sexWomanBtn;

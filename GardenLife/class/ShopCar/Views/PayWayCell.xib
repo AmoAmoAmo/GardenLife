@@ -22,7 +22,7 @@
                         <rect key="frame" x="17" y="5" width="30" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="v2_noselected" highlightedImage="v2_selected" translatesAutoresizingMaskIntoConstraints="NO" id="rWs-tu-Esi">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="select_no" highlightedImage="selected" translatesAutoresizingMaskIntoConstraints="NO" id="rWs-tu-Esi">
                         <rect key="frame" x="283" y="9" width="22" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
@@ -43,8 +43,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="v2_noselected" width="16" height="16"/>
-        <image name="v2_selected" width="16" height="16"/>
+        <image name="select_no" width="24" height="24"/>
+        <image name="selected" width="24" height="24"/>
         <image name="v2_weixin" width="31" height="31"/>
     </resources>
 </document>
